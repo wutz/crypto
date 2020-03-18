@@ -69,9 +69,11 @@ type Conn interface {
 	// error causing the shutdown.
 	Wait() error
 
+	// Disconnect cause immediate termination of the connection.
+	Disconnect(reason uint32, message string) error
+
 	// TODO(hanwen): consider exposing:
 	//   RequestKeyChange
-	//   Disconnect
 }
 
 // DiscardRequests consumes and rejects all requests from the

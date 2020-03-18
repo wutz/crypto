@@ -137,6 +137,13 @@ func (m *mux) sendMessage(msg interface{}) error {
 	return m.conn.writePacket(p)
 }
 
+func (m *mux) Disconnect(reason uint32, message string) error {
+	return m.sendMessage(&disconnectMsg{
+		Reason:  reason,
+		Message: message,
+	})
+}
+
 func (m *mux) SendRequest(name string, wantReply bool, payload []byte) (bool, []byte, error) {
 	if wantReply {
 		m.globalSentMu.Lock()
